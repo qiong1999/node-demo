@@ -7,6 +7,9 @@ const app = express();
 //引入users.js
 const users = require('./routes/api/users')
 
+//引入profiles
+const profiles = require('./routes/api/profiles')
+
 //DB config
 const db = require("./config/keys").mongoURI
 app.use(bodyParser.urlencoded({extended: false}))
@@ -17,11 +20,15 @@ mongoose.connect(db)
         .then(() => console.log("mongoDB Connect"))
         .catch(err => console.log(err))
 app.use(passport.initialize())
+
+require("./config/passport")(passport)
+
 app.get("/", (req, res) => {
     res.send("hello world!");
 })
 
 app.use("/api/users", users);
+app.use("/api/profiles", profiles)
 
 const port = process.env.PORT || 5000;
 
