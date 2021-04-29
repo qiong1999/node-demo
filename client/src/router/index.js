@@ -7,6 +7,16 @@ const routes = [
     name: 'index',
     component:index
   },
+  {
+    path: '/register',
+    name: 'register',
+    component: () => import('../views/Register.vue')
+  },
+  {
+    path: '/:catchAll(.*)',
+    name: 'notfound',
+    component: () => import('../views/404.vue')
+  }
 ]
 
 const router = createRouter({
